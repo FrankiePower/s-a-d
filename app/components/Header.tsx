@@ -15,8 +15,8 @@ export default function Header({ showConnectWallet = false }: HeaderProps) {
           <Image
             src="/s.a.d transparent logo.png"
             alt="S.A.D"
-            width={80}
-            height={40}
+            width={160}
+            height={80}
             className="object-contain"
             priority
           />
