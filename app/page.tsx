@@ -1,65 +1,98 @@
-import Image from "next/image";
+import GridBackground from "./components/GridBackground";
+import Header from "./components/Header";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+    <div className="h-screen overflow-hidden bg-black text-white font-sans selection:bg-white/15 cursor-default flex flex-col">
+      <GridBackground />
+
+      <Header showConnectWallet={false} />
+
+      <main className="relative z-10 flex-1 flex items-center px-6 md:px-8 lg:px-12">
+        <div className="max-w-7xl mx-auto w-full">
+          <div className="flex flex-col gap-12 md:gap-20">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8 items-end">
+              <div className="lg:col-span-8 flex flex-col gap-4 md:gap-6">
+                <div className="flex items-center gap-3 md:gap-4 mb-2 md:mb-4">
+                  <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white"></div>
+                  <div className="h-px w-8 md:w-12 bg-white/40"></div>
+                  <span className="text-[9px] md:text-[10px] tracking-[0.3em] uppercase font-mono text-[#ff3131]/80">
+                    Stellar Account Migration & Closure Infrastructure
+                  </span>
+                </div>
+
+                <h1 className="text-[2.5rem] sm:text-[3.5rem] md:text-[5rem] lg:text-[7rem] font-bold leading-[0.85] tracking-[-0.05em] text-[#ff3131]">
+                  STELLAR
+                  <span className="block text-white ml-1 md:ml-2 lg:ml-3">
+                    ACCOUNT
+                  </span>
+                  <span className="block text-white ml-1 md:ml-2 lg:ml-3">
+                    DEMOLISHER
+                  </span>
+                </h1>
+              </div>
+
+              <div className="lg:col-span-4 flex flex-col justify-end pb-2 md:pb-4 gap-4 md:gap-6">
+                <div className="space-y-3 md:space-y-4 border-l border-white/20 pl-6 md:pl-8">
+                  <p className="text-base md:text-xl text-white leading-relaxed font-light">
+                    Inspect everything attached to a Stellar account. Understand
+                    what can be recovered, preview cleanup steps, and close
+                    safely — without signing anything you don't understand.
+                  </p>
+                  <p className="text-xs md:text-sm text-white/60 leading-relaxed font-mono">
+                    Built on Stellar.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-4 md:gap-6">
+              <Link href="/demo" className="w-full sm:w-auto">
+                <button className="group relative w-full sm:w-auto px-6 md:px-8 py-3 md:py-4 bg-black border border-white text-white overflow-hidden cursor-pointer">
+                  <div className="absolute inset-0 bg-white -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out"></div>
+                  <span className="relative z-10 text-xs md:text-sm font-bold tracking-[0.15em] group-hover:text-black transition-colors duration-300 flex items-center justify-center gap-3">
+                    INSPECT ACCOUNT
+                    <svg
+                      className="w-4 h-4 transition-transform duration-500 group-hover:translate-x-1"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M17 8l4 4m0 0l-4 4m4-4H3"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </Link>
+            </div>
+          </div>
         </div>
       </main>
+
+      <footer className="relative z-50 bg-linear-to-t from-black via-black/95 to-transparent border-t border-white/10">
+        <div className="max-w-7xl mx-auto px-6 md:px-8 py-3 md:py-4">
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-0 justify-between items-center">
+            <div className="flex items-center gap-3">
+              <span className="text-[9px] md:text-[10px] tracking-[0.2em] uppercase font-mono text-white/40">
+                v1.0.0
+              </span>
+            </div>
+            <div className="flex items-center gap-4 md:gap-6 text-[9px] md:text-[10px] tracking-[0.2em] uppercase font-mono text-white/40">
+              <a
+                href="https://github.com/FrankiePower/s-a-d"
+                className="hover:text-white transition-colors cursor-pointer"
+              >
+                GitHub
+              </a>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
