@@ -3,7 +3,7 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import HowItWorks from "./components/HowItWorks";
-import CodeExample from "./components/CodeExample";
+import WalletConnect from "./components/WalletConnect";
 import YellowDemo from "./components/YellowDemo";
 import ChannelManagement from "./components/ChannelManagement";
 import FeatureAccordion from "./components/FeatureAccordion";
@@ -31,9 +31,9 @@ export default function Demo() {
           <section className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8">
             <div className="lg:col-span-8">
               <h2 className="text-xs md:text-sm font-mono text-white/40 uppercase tracking-widest mb-4 md:mb-6">
-                Integration Example
+                Connect Wallet
               </h2>
-              <CodeExample />
+              <WalletConnect />
             </div>
 
             <div className="lg:col-span-4">
