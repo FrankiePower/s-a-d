@@ -6,6 +6,7 @@ import HowItWorks from "./components/HowItWorks";
 import CodeExample from "./components/CodeExample";
 import YellowDemo from "./components/YellowDemo";
 import ChannelManagement from "./components/ChannelManagement";
+import FeatureAccordion from "./components/FeatureAccordion";
 
 export default function Demo() {
   return (
@@ -24,6 +25,7 @@ export default function Demo() {
                 an additional 0.5 XLM reserve.
                 This tool provides a straightforward way to merge Stellar accounts automatically.
             </p>
+            <FeatureAccordion />
           </section>
 
           <section className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8">
