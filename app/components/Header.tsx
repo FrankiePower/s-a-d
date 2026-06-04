@@ -39,7 +39,7 @@ export default function Header({ showConnectWallet = false }: HeaderProps) {
                 </svg>
                 <span className="hidden sm:inline">GitHub</span>
               </Link>
-              <Link href="/build">
+              <Link href="/demo">
                 <button className="relative px-4 md:px-6 py-1.5 md:py-2 bg-white text-black text-[10px] md:text-xs font-bold uppercase tracking-wider transition-transform duration-300 hover:scale-105 border border-white cursor-pointer ml-2 md:ml-4">
                   <span className="relative z-10">Launch Demo</span>
                 </button>
