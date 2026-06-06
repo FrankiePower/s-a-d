@@ -31,6 +31,25 @@ The demo should make the product direction obvious:
 
 The point is to show that we understand the hard parts of the RFP and can turn them into a credible user experience.
 
+## Our Unique Position
+
+We are not just building another demolisher tool. We are the team behind **[Latch](https://github.com/FrankiePower/latch)** — open-source infrastructure that bridges legacy Stellar G-addresses to Soroban Smart Accounts (C-addresses).
+
+That makes S.A.D. the natural completion step of the Latch migration pipeline:
+
+```
+1. User holds a G-address (from a CEX, Freighter, or legacy wallet)
+2. Latch Bridge: forwards funds from G-address → funds the user's new Smart Account
+3. S.A.D: inspects the G-address → cleans trustlines, offers, data entries → merges the account → sends all recovered XLM to the destination
+4. Migration complete — user is fully on Soroban, old account is gone, zero reserves locked
+```
+
+Every Latch user who onboards to a Smart Account is a natural S.A.D. user. The account demolisher is not a standalone utility in our roadmap — it is the **last step of the Latch onboarding flow**.
+
+This also means the recovered reserves (1 XLM base + 0.5 XLM per trustline, signer, data entry) flow directly into funding the user's new Smart Account — exactly where they are needed.
+
+No other demolisher submission controls the full migration pipeline. We build both ends.
+
 ## Long-Term Direction
 
 The eventual product is an open-source stack for account recovery, cleanup, migration, and closure across Stellar:
@@ -39,5 +58,4 @@ The eventual product is an open-source stack for account recovery, cleanup, migr
 - a backend/indexing service for heavy discovery and protocol adapters
 - a production web app with Stellar Wallets Kit support
 - documentation, tests, and security review materials
-
-S.A.D can also support softer migration use cases, including moving from a traditional Stellar account into a smart account without forcing immediate account closure.
+- native integration with the Latch Bridge for one-click G-address → Smart Account migration
