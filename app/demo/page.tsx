@@ -4,8 +4,6 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import HowItWorks from "./components/HowItWorks";
 import WalletConnect from "./components/WalletConnect";
-import YellowDemo from "./components/YellowDemo";
-import ChannelManagement from "./components/ChannelManagement";
 import FeatureAccordion from "./components/FeatureAccordion";
 
 export default function Demo() {
@@ -38,16 +36,6 @@ export default function Demo() {
 
             <div className="lg:col-span-4">
               <HowItWorks />
-            </div>
-          </section>
-
-          <section className="max-w-5xl mx-auto">
-            <h2 className="text-xs md:text-sm font-mono text-white/40 uppercase tracking-widest mb-4 md:mb-6 text-center">
-              Live Demo - Full State Channel Flow
-            </h2>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <ChannelManagement />
-              <YellowDemo />
             </div>
           </section>
 

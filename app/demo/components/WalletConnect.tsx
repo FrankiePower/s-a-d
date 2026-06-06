@@ -1,16 +1,37 @@
 "use client";
 
+import { useState } from "react";
 import { useFreighter } from "@/hooks/useFreighter";
 import { useInspectAccount } from "@/hooks/useInspectAccount";
+import { useDemolisher } from "@/hooks/useDemolisher";
 
 export default function WalletConnect() {
-  const { connected, address, network, connecting, error, connect, disconnect } =
+  const { connected, address, network, connecting, error, connect, disconnect, sign } =
     useFreighter();
 
   const { status: inspectStatus, data, error: inspectError } =
     useInspectAccount(address, network);
 
+  const { status: mergeStatus, currentStep, logs, error: mergeError, merge, reset: resetMerge } =
+    useDemolisher();
+
+  const [destination, setDestination] = useState("");
+  const [memo, setMemo] = useState("");
+
   const short = (addr: string) => `${addr.slice(0, 6)}...${addr.slice(-6)}`;
+
+  const hasHardBlocker = data?.blockers.some((b) => b.severity === "hard") ?? false;
+  const isRunning = mergeStatus === "running";
+  const canMerge =
+    inspectStatus === "success" &&
+    destination.trim().length > 0 &&
+    !hasHardBlocker &&
+    !isRunning;
+
+  const handleMerge = async () => {
+    if (!address || !network) return;
+    await merge({ source: address, destination, memo: memo || undefined, network, sign });
+  };
 
   return (
     <div className="bg-white/5 border border-white/10">
@@ -20,11 +41,19 @@ export default function WalletConnect() {
           Wallet
         </span>
         {connected && (
-          <div className="flex items-center gap-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-green-400" />
-            <span className="text-xs font-mono text-green-400 uppercase tracking-wider">
-              Connected
-            </span>
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
+              <div className="w-1.5 h-1.5 rounded-full bg-green-400" />
+              <span className="text-xs font-mono text-green-400 uppercase tracking-wider">
+                Connected
+              </span>
+            </div>
+            <button
+              onClick={disconnect}
+              className="px-3 py-1 text-[10px] font-mono font-bold uppercase tracking-wider border border-red-500/50 text-red-400 hover:bg-red-500/10 transition-colors"
+            >
+              Disconnect
+            </button>
           </div>
         )}
       </div>
@@ -124,7 +153,6 @@ export default function WalletConnect() {
                   </p>
                 </div>
 
-                {/* Quick summary */}
                 <div className="grid grid-cols-2 gap-2">
                   {[
                     { label: "XLM Balance", value: `${data.xlmBalance} XLM` },
@@ -143,7 +171,6 @@ export default function WalletConnect() {
                   ))}
                 </div>
 
-                {/* Blockers */}
                 {data.blockers.length > 0 && (
                   <div className="space-y-1">
                     {data.blockers.map((b, i) => (
@@ -169,12 +196,106 @@ export default function WalletConnect() {
               </div>
             )}
 
-            <button
-              onClick={disconnect}
-              className="text-xs font-mono text-white/30 hover:text-white/60 transition-colors uppercase tracking-wider"
-            >
-              Disconnect
-            </button>
+            {/* Input forms — shown once scan is complete */}
+            {inspectStatus === "success" && (
+              <div className="space-y-3 border-t border-white/10 pt-5">
+                <div className="text-[10px] font-mono text-white/40 uppercase tracking-widest mb-3">
+                  Merge Destination
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-xs font-mono text-white/60">
+                    Destination address
+                    <span className="text-white/30"> — account that will receive funds</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={destination}
+                    onChange={(e) => setDestination(e.target.value.replace(/\W/g, ""))}
+                    placeholder="G..."
+                    maxLength={60}
+                    className="w-full bg-black/50 border border-white/10 px-3 py-2.5 text-sm font-mono text-white placeholder:text-white/20 focus:outline-none focus:border-white/30 transition-colors"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-xs font-mono text-white/60">
+                    Memo
+                    <span className="text-white/30"> — required for exchanges and anchors</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={memo}
+                    onChange={(e) => setMemo(e.target.value)}
+                    placeholder="Optional"
+                    maxLength={28}
+                    className="w-full bg-black/50 border border-white/10 px-3 py-2.5 text-sm font-mono text-white placeholder:text-white/20 focus:outline-none focus:border-white/30 transition-colors"
+                  />
+                </div>
+
+                {/* Signature count warning */}
+                {data && (
+                  <div className="bg-white/5 border border-white/10 p-3">
+                    <p className="text-xs font-mono text-white/50">
+                      <span className="text-white">
+                        {data.cleanupSteps.length} Freighter approval{data.cleanupSteps.length !== 1 ? "s" : ""}
+                      </span>
+                      {" "}required — one per cleanup step. Each popup must be approved in sequence.
+                    </p>
+                  </div>
+                )}
+
+                <button
+                  onClick={handleMerge}
+                  disabled={!canMerge}
+                  className="w-full px-6 py-3 bg-[#ff3131] text-black font-bold text-sm uppercase tracking-wider transition-opacity disabled:opacity-30 disabled:cursor-not-allowed hover:opacity-90 flex items-center justify-center gap-3"
+                >
+                  {isRunning ? (
+                    <>
+                      <div className="w-4 h-4 border-2 border-black/20 border-t-black rounded-full animate-spin" />
+                      {currentStep.replace(/_/g, " ").toUpperCase()}…
+                    </>
+                  ) : mergeStatus === "done" ? (
+                    "✓ ACCOUNT MERGED"
+                  ) : (
+                    "MERGE ACCOUNT"
+                  )}
+                </button>
+
+                {hasHardBlocker && !isRunning && (
+                  <p className="text-xs font-mono text-red-400/70 text-center">
+                    Resolve hard blockers above before merging.
+                  </p>
+                )}
+
+                {/* Step log */}
+                {logs.length > 0 && (
+                  <div className="bg-black border border-white/10 p-3 space-y-1 max-h-48 overflow-auto">
+                    {logs.map((log, i) => (
+                      <div key={i} className="flex items-start gap-2 text-xs font-mono">
+                        <span className={`shrink-0 ${
+                          log.step === "done" ? "text-green-400" :
+                          log.step === "error" ? "text-red-400" :
+                          "text-white/40"
+                        }`}>
+                          {log.step === "done" ? "✓" : log.step === "error" ? "✗" : "→"}
+                        </span>
+                        <span className="text-white/70">{log.detail}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {mergeError && (
+                  <div className="bg-red-500/10 border border-red-500/50 p-3 flex items-start justify-between gap-3">
+                    <p className="text-xs font-mono text-red-400">{mergeError}</p>
+                    <button onClick={resetMerge} className="text-xs font-mono text-white/40 hover:text-white shrink-0">
+                      retry
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         )}
       </div>
