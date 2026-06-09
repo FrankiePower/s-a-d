@@ -6,7 +6,7 @@ export default function IntegrationBanner() {
   return (
     <div className="relative w-full overflow-hidden border-2 border-[#F5A623]/60 bg-[#F5A623]/[0.08] shadow-[0_0_40px_rgba(245,166,35,0.12)]">
       {/* Ambient glow */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#F5A623]/20 via-transparent to-[#FF2D00]/8" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#F5A623]/15 to-[#F5A623]/5" />
 
       <div className="relative px-6 py-8 md:px-8 md:py-9">
         <p className="text-[10px] font-mono text-[#F5A623] uppercase tracking-[0.2em] mb-7">
@@ -33,17 +33,9 @@ export default function IntegrationBanner() {
             </div>
           </div>
 
-          {/* Connector */}
-          <div className="flex-1 flex-col items-center gap-1 px-6 md:px-10 hidden md:flex">
-            <div className="flex items-center w-full gap-1.5">
-              <div className="flex-1 h-[1.5px] bg-gradient-to-r from-[#F5A623]/80 to-[#FF2D00]/60" />
-              <svg width="8" height="12" viewBox="0 0 8 12" fill="none" className="flex-shrink-0">
-                <path d="M0 0L8 6L0 12V0Z" fill="#F5A623" fillOpacity="0.7" />
-              </svg>
-            </div>
-            <p className="text-[9px] font-mono text-[#F5A623]/40 uppercase tracking-wider whitespace-nowrap mt-1">
-              keypair stays active
-            </p>
+          {/* Collaboration mark */}
+          <div className="flex-1 flex items-center justify-center px-6 md:px-10 hidden md:block">
+            <p className="text-2xl font-bold text-[#F5A623]/60 text-center tracking-tight">×</p>
           </div>
 
           {/* S.A.D. */}
