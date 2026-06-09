@@ -5,6 +5,7 @@ import Footer from "../components/Footer";
 import HowItWorks from "./components/HowItWorks";
 import WalletConnect from "./components/WalletConnect";
 import FeatureAccordion from "./components/FeatureAccordion";
+import IntegrationBanner from "./components/IntegrationBanner";
 
 export default function Demo() {
   return (
@@ -32,12 +33,17 @@ export default function Demo() {
                 Connect Wallet
               </h2>
               <WalletConnect />
+              <div className="mt-6">
+                <IntegrationBanner />
+              </div>
             </div>
 
             <div className="lg:col-span-4">
               <HowItWorks />
             </div>
           </section>
+
+          
 
           <section className="flex flex-col items-center max-w-3xl mx-auto text-center border-t border-white/10 pt-12 md:pt-16">
             <h2 className="text-xs md:text-sm font-mono text-white/40 uppercase tracking-widest mb-3 md:mb-4">
