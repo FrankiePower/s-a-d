@@ -47,6 +47,7 @@ export default function IntegrationBanner() {
                 width={104}
                 height={38}
                 className="object-contain"
+                style={{ height: "auto" }}
               />
             </div>
             <div>
