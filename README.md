@@ -17,6 +17,12 @@ S.A.D reframes account closure as a safety-first flow:
 - separate reversible cleanup from irreversible account merge
 - support both classic Stellar and future Soroban-aware flows
 
+## System Layer Diagram
+
+This shows the main product layers and which parts are user-facing, reusable, or backend-assisted.
+
+<img width="7326" height="7692" alt="system-layer" src="https://github.com/user-attachments/assets/58e5a61b-43bd-413d-9a72-ccb2445599b8" />
+
 ## What We Are Building First
 
 This repo starts as a focused submission demo, not the full production system.
@@ -33,16 +39,12 @@ The point is to show that we understand the hard parts of the RFP and can turn t
 
 ## Our Unique Position
 
-We are not just building another demolisher tool. We are the team behind **[Latch](https://github.com/FrankiePower/latch)** — open-source infrastructure that bridges legacy Stellar G-addresses to Soroban Smart Accounts (C-addresses).
+We are the team behind **[Latch](https://github.com/FrankiePower/latch)** — open-source infrastructure that bridges legacy Stellar G-addresses to Soroban Smart Accounts (C-addresses).
 
 That makes S.A.D. the natural completion step of the Latch migration pipeline:
 
-```
-1. User holds a G-address (from a CEX, Freighter, or legacy wallet)
-2. Latch Bridge: forwards funds from G-address → funds the user's new Smart Account
-3. S.A.D: inspects the G-address → cleans trustlines, offers, data entries → merges the account → sends all recovered XLM to the destination
-4. Migration complete — user is fully on Soroban, old account is gone, zero reserves locked
-```
+<img width="10127" height="6010" alt="sadxlatch" src="https://github.com/user-attachments/assets/b2499739-966e-463e-ae83-2b8d048e7d19" /> </br>
+
 
 Every Latch user who onboards to a Smart Account is a natural S.A.D. user. The account demolisher is not a standalone utility in our roadmap — it is the **last step of the Latch onboarding flow**.
 
